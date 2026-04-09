@@ -1,28 +1,13 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-</head>
+<html>
 <body>
-
-<button onclick="sendGPS()">Autoriser la géolocalisation</button>
-
 <script>
-function sendGPS() {
-    navigator.geolocation.getCurrentPosition(
-        function(position) {
-            parent.postMessage(
-                position.coords.latitude + "," + position.coords.longitude,
-                "*"
-            );
-        },
-        function(error) {
-            parent.postMessage("ERREUR", "*");
-        },
-        { enableHighAccuracy: true }
-    );
-}
+navigator.geolocation.getCurrentPosition(function(position) {
+    parent.postMessage({
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+    }, "*");
+});
 </script>
-
 </body>
 </html>
