@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html>
 <body>
+
+<button onclick="getGPS()">Autoriser GPS</button>
+
 <script>
-navigator.geolocation.getCurrentPosition(function(position) {
-    parent.postMessage(
-        position.coords.latitude + "," + position.coords.longitude,
-        "http://christ.mingam.free.fr"
+function getGPS() {
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            parent.postMessage(
+                position.coords.latitude + "," + position.coords.longitude,
+                "http://christ.mingam.free.fr"
+            );
+        },
+        function(error) {
+            parent.postMessage("ERROR", "http://christ.mingam.free.fr");
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+        }
     );
-});
+}
+
+// appel automatique après chargement
+window.onload = getGPS;
 </script>
+
 </body>
 </html>
