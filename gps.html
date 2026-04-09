@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 <body>
-<script>
-navigator.geolocation.getCurrentPosition(function(position) {
-    parent.postMessage({
-        lat: position.coords.latitude,
-        lon: position.coords.longitude
-    }, "*");
-});
-</script>
+    <p>Localisation en cours...</p>
+    <script>
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            // On renvoie l'utilisateur vers Free avec les données
+            window.location.href = "http://christ.mingam.free.fr/stationnement.php?lat=" + lat + "&lon=" + lon;
+        }, function(error) {
+            alert("Erreur GPS : " + error.message);
+            window.location.href = "http://christ.mingam.free.fr/stationnement.php";
+        });
+    </script>
 </body>
 </html>
